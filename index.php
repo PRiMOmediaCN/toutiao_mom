@@ -1,10 +1,12 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<link href="images/m.css" rel="stylesheet" type="text/css" />
-<script src="inc/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="inc/ajaxfileupload.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="images/m.css" rel="stylesheet" type="text/css" />
+    <script src="inc/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="inc/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="inc/toutiao.js"></script>
+    <script type="text/javascript" src="inc/hammer.min.js"></script>
 <script>
 var imgloading = new Image();
 imgloading.src = "images/loading.jpg";
@@ -56,7 +58,7 @@ imgloading.onload=function(){
 	});
 };
 </script>
-<title>国机</title>
+<title>妈妈</title>
 </head>
 <body>
 
@@ -97,8 +99,8 @@ imgloading.onload=function(){
         <input type="hidden" id="filename" name="filename" />
         <img id="p4_mb" class="posit2" src="images/p4_mb.png">
         <img id="superman" class="posit1" src="images/p1_bg.jpg" />
-        <img id="p4_bt_1" class="posit3 p4_bt" src="images/p4_bt_1.png">
-        <img id="p4_bt_2" class="posit3 p4_bt" src="images/p4_bt_2.png">
+        <img id="p4_bt_1" class="posit3 p4_bt" src="images/p4_bt_1.png" onclick="$('#fileUpload').click()">
+        <img id="p4_bt_2" class="posit3 p4_bt" src="images/p4_bt_2.png" onclick="cutimage()">
     </div>
     <div id="p5" class="page posit9 dpl">
         <img id="superman2" class="posit1" src="images/p1_bg.jpg" />
@@ -121,14 +123,14 @@ imgloading.onload=function(){
         <img id="p5_bt_1" class="posit3 p5_bt" src="images/p5_bt_1.png">
         <img id="p5_bt_2" class="posit3 p5_bt" src="images/p5_bt_2.png">
         <!-- 年龄 -->
-        <div id="age_left_bar" class="posit9">
+        <!--<div id="age_left_bar" class="posit9">
             <img id="age_left_bg" class="posit1" src="images/age_left_bg.png">
             <label id="age_left_lab" class="posit2 tec">53</label>
         </div>
         <div id="age_right_bar" class="posit9">
             <img id="age_right_bg" class="posit1" src="images/age_right_bg.png">
             <label id="age_right_lab" class="posit2 tec">26</label>
-        </div>
+        </div>-->
     </div>
     <div id="p6" class="page posit9 dpl">
         <img class="bg" src="images/p6_bg.jpg">
@@ -171,8 +173,11 @@ imgloading.onload=function(){
 </div>
 
 <script type="text/javascript">
-    //ajax 上传
-    var superman2_src;
+//ajax 上传
+var superman2_src;
+
+var dx,dy,swidth,sheight,sleft,stop;
+
 function ajaxFileUpload(fileUploadId) {
         $("#fileUpload").hide();
         $.ajaxFileUpload({
@@ -182,47 +187,68 @@ function ajaxFileUpload(fileUploadId) {
             dataType:'json',//返回值类型 一般设置为json
             //服务器成功响应处理函数
             success:function(data,status){
-                if(typeof(data.error)!='undefined'){
-                    if(data.error!=''){
-                        alert(data.error);
-                    }else{
-                        alert(data.msg);
-                    }
-                }else{
-                    //alert(data.error);
+                console.log(data);
+                switch (data.msg){
+                    case 'Exceed the limit size':
+                        alert('请上传小于4M的文件');
+                        break;
+                    case 'The suffix is not legal':
+                        alert('请上传jpg或者png的图片');
+                        break;
+                    case 'upload success':
+                        document.getElementById("superman").onload=function () {
+                            $('#p4').fadeIn(500);
+                            $('#p3').fadeOut(500);
+                            $("#superman").show();
 
-                    if(data.msg=='upload success'){
-                        //console.log(data.n);
+                            var mc = new Hammer(document.getElementById("p4_mb"));
+                            mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+                            mc.get('pinch').set({ enable: true });
+                            mc.on("panstart", function(ev) {
+                                dy=0;
+                                dx=0;
+                            });
+                            mc.on("panmove", function(ev) {
+                                nextleft=parseInt($("#superman").css("left"))+(ev.deltaX-dx);
+                                nexttop=parseInt($("#superman").css("top"))+(ev.deltaY-dy);
+                                $("#superman").css({left:nextleft+"px",top:nexttop+"px"});
+                                dy=ev.deltaY;
+                                dx=ev.deltaX;
+                            });
+                            mc.on("pinchstart", function(ev) {
+                                swidth=parseInt($("#superman").width());
+                                sheight=parseInt($("#superman").height());
+                                sleft=parseInt($("#superman").css("lfet"));
+                                stop=parseInt($("#superman").css("top"));
+                            });
+                            mc.on("pinchmove", function(ev) {
+                                $("#superman").css({width:swidth*ev.scale+"px",height:sheight*ev.scale+"px",left:(sleft+(1-ev.scale)*swidth/2)+"px",top:(stop+(1-ev.scale)*sheight/2)+"px"});
+                            });
+                        }
 
-                        xx = data.w;//上传图片的宽
-                        yy = data.h;//上传图片的高
-                        //location.href='index.php?filename='+data.n+'&xxx='+xx+'&yyy='+yy;
-                        superman2_src=data.n
-                        $('#p4').fadeIn(500);
-                        $('#p3').fadeOut(500);
-                        cx=(x-(xx/p))/2;
-                        cy=0;
-                        $("#superman").show();
-                        //$('#superman').width(xx/p);
                         $('#superman').css({left:0,top:0});
-
-//                        $('#decX').attr('value',(720-(xx))/2);//left
-//                        $('#decY').attr('value',228);//top
-//                        $('#decW').attr('value',xx);//width
-
-                        $("#superman").attr("src","logo/"+data.n);
+                        $("#superman").attr("src","upload/"+data.filename);
                         $("#superman").css({"display":"block"});
                         $("#fileUpload").hide();
-                    }else{
-                        if(data.msg=='Exceed the limit size'){
-                            alert('请上传小于4M的文件');
-                        }else if(data.msg=='The suffix is not legal'){
-                            alert('请上传jpg或者png的图片');
-                        }else{
-                            alert(data.msg+'上传失败，请重新上传');
-                        }
-                        $("#fileUpload").show();
-                    }
+                        /*$.each(data.info.face_list,function (i,v) {
+                            $.each(v.landmark72,function (li,lv) {
+                                console.log(li);
+                                console.log(lv);
+                                var point=$("<div>");
+                                point.css("background-color","#1cb9bf");
+                                point.css("position","absolute");
+                                point.css("left",lv.x+"px");
+                                point.css("top",lv.y+"px");
+                                point.css("width","3px");
+                                point.css("height","3px");
+                                $("#pointContainer").append(point);
+                            })
+                        })*/
+
+                        break;
+                    default:
+                        alert(data.msg+'上传失败，请重新上传');
+                        break;
                 }
             },
             //服务器响应失败处理函数
@@ -235,20 +261,44 @@ function ajaxFileUpload(fileUploadId) {
 var count=1;
 var x,y,p,cx,cx1,cy,startX,startY,endX,endY,sx,sy,xs,ys,startX1,endX1,tx=0,ty=0;
 var p5_count=1;
+function cutimage(){
+    var imagew=$("#superman").width();
+    var imagel=parseFloat($("#superman").css("left"));
+    var imaget=parseFloat($("#superman").css("top"));
+    var mbw=$("#p4_mb").width();
+    var filename=$("#superman").attr("src");
+    $.ajax({
+        url:"cutimage.php",
+        type:"POST",
+        dataType:"json",
+        data:{
+            imagew:imagew,
+            imagel:imagel,
+            imaget:imaget,
+            mbw:mbw,
+            filename:filename,
+        },
+        success:function (r) {
+            switch(r.msg){
+                case "only1face":
+                    alert("请重新上传合照，秀出和妈妈在一起的美好瞬间");
+                    break;
+                case "cut success":
+                    $("#superman2").attr("src","cuted/"+r.filename);
+                    $('#p5').fadeIn(500);
+                    $('#p4').fadeOut(500);
+                    break;
+            }
+            console.log(r);
+        }
+    })
+}
 $(document).ready(function() {
 	x=parseInt(window.innerWidth);
 	y=parseInt(window.innerHeight);
 	p=720/x;
 	getWidth(); 
 
-
-
-	$('#p4_bt_2').click(function () {
-        $("#superman2").attr("src","logo/"+superman2_src);
-//        $("#superman2").css({left:tx+'px',top:ty+'px'});
-        $('#p5').fadeIn(500);
-        $('#p4').fadeOut(500);
-    });
 	
 	$('#p5_left').click(function () {
 	    if(p5_count<6){
@@ -275,9 +325,29 @@ $(document).ready(function() {
         }
     });
 
-    $('#p5_bt_2').click(function () {
-        $('#p6').fadeIn(500);
+    $('#p5_bt_1').click(function () {
+        $('#p4').fadeIn(500);
         $('#p5').fadeOut(500);
+    });
+    $('#p5_bt_2').click(function () {
+        if(typeof(huazi_count) == "undefined") huazi_count=1;
+        $.ajax({
+            url:"makeimage.php",
+            dataType:"json",
+            type:"POST",
+            data:{
+                filename:$("#superman2").attr("src"),
+                model:p5_count,
+                huazi:huazi_count
+            },
+            success:function (r) {
+                console.log(r);
+                $("#p6 .bg").attr("src","made/"+r.filename);
+                $("#p8 .bg").attr("src","made/"+r.filename);
+                $('#p6').fadeIn(500);
+                $('#p5').fadeOut(500);
+            }
+        })
     });
 
     $('#p6_bt').click(function () {
