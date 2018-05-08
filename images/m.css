@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{ font-family:"微软雅黑"}
+#container{ position:absolute; left:0; top:0; overflow:hidden;}
+.p{ position:absolute;}
+.posit1{ position:absolute; z-index:1;}
+.posit2{ position:absolute; z-index:2;}
+.posit3{ position:absolute; z-index:3;}
+.posit9{ position:absolute; z-index:9;}
+.posit10{ position:absolute; z-index:10;}
+.dpl{ display: none;}
+.fl{ float: left;}
+.tec{ text-align: center;}
+/*  p1   */
+#loadings{background-color:#000; width:100%; height:100%; z-index:99; position:absolute; left:0; top:0; padding:0; margin:0;}
+/*  p2   */
+#fileUpload{ opacity: 0;}
+#tel{ background-color: transparent; border: 0; text-align: right;}
+.p2_img{ opacity: 0;}
+#tel_bar img{ float: right;}
