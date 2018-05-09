@@ -140,9 +140,11 @@ imgloading.onload=function(){
         <img class="bg" src="images/p6_bg.jpg">
         <img id="p6_1" class="posit3" src="images/p6_1.png">
         <img id="p6_bt" class="posit3" src="images/p6_bt.png">
+        <img id="p6_bt2" class="posit3" src="images/p6_bt2.png">
     </div>
     <div id="p7" class="page posit9 dpl">
         <img class="bg" src="images/p7_bg.jpg">
+        <img id="p7_close" class="posit9" src="images/close.png">
         <div id="tel_bar" class="posit3">
 
         </div>
@@ -197,6 +199,7 @@ function shareToutiao() {
 }
 function ajaxFileUpload(fileUploadId) {
         p3_count2=0;
+        $('#p3_2').show();
         p3_set=setInterval(function () {
             for(var i=0;i<=6;i++){
                 setTimeout(function () {
@@ -226,6 +229,7 @@ function ajaxFileUpload(fileUploadId) {
                         break;
                     case 'upload success':
                         clearInterval(p3_set);
+                        $('#p3_2').hide();
                         $('#3_0').attr('src','images/3_0.png');
                         document.getElementById("superman").onload=function () {
                             $('#p4').fadeIn(500);
@@ -338,6 +342,12 @@ $(document).ready(function() {
 	y=parseInt(window.innerHeight);
 	p=720/x;
 	getWidth();
+
+	//
+    $('#p7_close').click(function () {
+        $('#p7').fadeOut(500);
+        $('#p8').fadeIn(500);
+    });
 
     //音乐
     //音乐开关
@@ -570,7 +580,18 @@ $(document).ready(function() {
                 return false;
             }
         }
+        $.ajax({
+            url:"count_phone.php",
+            type:"POST",
+            data:{
+                call:1
+            },
+            success:function (r) {
+                console.log(r);
+            }
+        })
          window.location.href="tel:"+phone+"";
+
         $('#p7').fadeOut(500);
 
         $('#p8').fadeIn(500);
@@ -745,7 +766,8 @@ function getWidth(){
     $('#huazi').width(265/p).height(166/p).css({left:142/p+'px',top:525/p+'px'});
     //p6
     $('#p6_1').width(186/p).height(117/p).css({left:509/p+'px',top:875/p+'px'});
-    $('#p6_bt').width(312/p).height(161/p).css({left:(x-312/p)/2+'px',bottom:40/p+'px'});
+    $('#p6_bt').width(200/p).height(95/p).css({left:(x-200/p)/2+'px',bottom:106/p+'px'});
+    $('#p6_bt2').width(312/p).height(60/p).css({left:(x-312/p)/2+'px',bottom:40/p+'px'});
     //
     $('#tel').width(450/p).height(70/p).css({left:(x-450/p)/2+'px',top:208/p+'px',fontSize:50/p+'px'});
     $('#number_bar').width(537/p).height(540/p).css({left:(x-537/p)/2+'px',top:420/p+'px'});
@@ -754,6 +776,8 @@ function getWidth(){
     $('#dial_close').width(50/p).height(33/p).css({left:540/p+'px',top:1009/p+'px'});
     $('#tel_bar').width(380/p).height(70/p).css({left:(x-380/p)/2+'px',top:208/p+'px',fontSize:50/p+'px'});
     $('#tel_bar img').width(32/p).height(47/p);
+    //
+    $('#p7_close').width(100/p).height(100/p).css({right:20/p+'px',top:20/p+'px'});
     //p8
     $('.p8_bt').width(268/p).height(73/p).css({bottom:95/p+'px'});
     $('#p8_bt_1').css({left:76/p+'px'});
