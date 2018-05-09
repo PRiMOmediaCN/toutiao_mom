@@ -137,7 +137,8 @@ imgloading.onload=function(){
         <img id="huazi" class="posit9 hauzi_img" src="images/huazi_1.png">
     </div>
     <div id="p6" class="page posit9 dpl">
-        <img class="bg" src="images/p6_bg.jpg">
+        <img id="p6_bg0" class="bg" style="position:absolute; left: 0; top: 0; z-index:0; " src="images/p6_bg.jpg">
+        <img id="p6_bg" class="bg" style="position:absolute; left: 0; top: 0;z-index:2; " src="images/p6_bg.jpg">
         <img id="p6_1" class="posit3" src="images/p6_1.png">
         <img id="p6_bt" class="posit3" src="images/p6_bt.png">
         <img id="p6_bt2" class="posit3" src="images/p6_bt2.png">
@@ -167,14 +168,15 @@ imgloading.onload=function(){
         <img id="dial_close" class="posit3" src="images/dial_close.png">
     </div>
     <div id="p8" class="page posit9 dpl">
-        <img class="bg" src="images/p6_bg.jpg">
+        <img id="p8_bg0" class="bg" style="position:absolute; left: 0; top: 0; z-index:0; " src="images/p6_bg.jpg">
+        <img id="p8_bg" class="bg" style="position:absolute; left: 0; top: 0;z-index:2; " src="images/p6_bg.jpg">
         <img id="p8_bt_1" class="posit3 p8_bt" src="images/p8_bt_1.png">
         <img id="p8_bt_2" class="posit3 p8_bt dpl" src="images/p8_bt_2.png" onclick="shareToutiao()">
-        <img id="p8_1" class="posit2 p8_img" src="images/p8_1.png">
-        <img id="p8_2" class="posit2 p8_img" src="images/p8_2.png">
-        <img id="p8_3" class="posit2 p8_img" src="images/p8_3.png">
-        <img id="p8_4" class="posit2 p8_img" src="images/p8_4.png">
-        <img id="p8_5" class="posit2 p8_img" src="images/p8_5.png">
+        <img id="p8_1" class="posit3 p8_img" src="images/p8_1.png">
+        <img id="p8_2" class="posit3 p8_img" src="images/p8_2.png">
+        <img id="p8_3" class="posit3 p8_img" src="images/p8_3.png">
+        <img id="p8_4" class="posit3 p8_img" src="images/p8_4.png">
+        <img id="p8_5" class="posit3 p8_img" src="images/p8_5.png">
     </div>
 </div>
 
@@ -185,7 +187,7 @@ var superman2_src;
 var dx,dy,swidth,sheight,sleft,stop;
 var p3_set;
 
-ToutiaoJSBridge.call('config', {'client_id': '7303d4f2cc942624'}, function(e){
+ToutiaoJSBridge.call('config', {'client_id': '<?php echo $transKEY?>'}, function(e){
     $("#p8_bt_2").show();
 })
 function shareToutiao() {
@@ -422,8 +424,8 @@ $(document).ready(function() {
             },
             success:function (r) {
                 console.log(r);
-                $("#p6 .bg").attr("src","made/"+r.filename);
-                $("#p8 .bg").attr("src","made/"+r.filename);
+                $("#p6_bg").attr("src","made/"+r.filename);
+                $("#p8_bg").attr("src","made/"+r.filename);
                 $('#p6').fadeIn(500);
                 $('.shutup').css({left:10/p+'px',top:160/p+'px'});
                 $('#p5').fadeOut(500);
@@ -530,7 +532,7 @@ $(document).ready(function() {
 
     //返回首页
     $('#p8_bt_1').click(function () {
-        window.location.href=window.location.href;
+        window.location.href=window.location.href+'?timeline='+Math.random();
     });
 
 	//手指滑动切换页面
@@ -765,7 +767,7 @@ function getWidth(){
     $('#age_right_bar').width(82/p).height(78/p).css({left:494/p+'px',top:288/p+'px'});
     $('#huazi').width(265/p).height(166/p).css({left:142/p+'px',top:525/p+'px'});
     //p6
-    $('#p6_1').width(186/p).height(117/p).css({left:509/p+'px',top:875/p+'px'});
+    $('#p6_1').width(373/p).height(35/p).css({left:(x-373/p)/2+'px',top:925/p+'px'});
     $('#p6_bt').width(200/p).height(95/p).css({left:(x-200/p)/2+'px',bottom:106/p+'px'});
     $('#p6_bt2').width(312/p).height(60/p).css({left:(x-312/p)/2+'px',bottom:40/p+'px'});
     //
@@ -787,6 +789,7 @@ function getWidth(){
     $('#p8_3').width(147/p).height(84/p).css({left:360/p+'px',top:710/p+'px'});
     $('#p8_4').width(211/p).height(120/p).css({left:70/p+'px',top:825/p+'px'});
     $('#p8_5').width(103/p).height(59/p).css({left:530/p+'px',top:940/p+'px'});
+    $('#p8_bg,#p6_bg').height(1170/p);
 }
 </script>
 </body>

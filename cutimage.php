@@ -67,6 +67,12 @@ if(isset($_POST['filename'])){
         $face1popy=$face1['location']['top']+$face1['location']['height']/2;
         $face1agex=$face1popx+25;
         $face1agey=$face1popy+80;
+        if($face1age<10){
+            $face1agex+=15;
+        }
+        if($face1age>99){
+            $face1agex-=15;
+        }
 
         $face2=$result['face_list'][1];
         $face2age=$face2['age'];
@@ -75,6 +81,12 @@ if(isset($_POST['filename'])){
         $face2popy=$face2['location']['top']+$face2['location']['height']/2;
         $face2agex=$face2popx+25;
         $face2agey=$face2popy+80;
+        if($face2age<10){
+            $face2agex+=15;
+        }
+        if($face2age>99){
+            $face2agex-=15;
+        }
 
         if($face1popx<$face2popx){
             $face2popx=$face2['location']['left']+$face2['location']['width']+40;
@@ -82,6 +94,12 @@ if(isset($_POST['filename'])){
             $face2popfile="images/age_right_bg.png";
             $face2agex=$face2popx+40;
             $face2agey=$face2popy+70;
+            if($face2age<10){
+                $face2agex+=15;
+            }
+            if($face2age>99){
+                $face2agex-=15;
+            }
         }
         if($face1popx>=$face2popx){
             $face1popx=$face1['location']['left']+$face1['location']['width']+40;
@@ -89,6 +107,12 @@ if(isset($_POST['filename'])){
             $face1popfile="images/age_right_bg.png";
             $face1agex=$face1popx+40;
             $face1agey=$face1popy+70;
+            if($face1age<10){
+                $face1agex+=15;
+            }
+            if($face1age>99){
+                $face1agex-=15;
+            }
         }
         $image = imagecreatefromjpeg("cuted/".$savename);
 
