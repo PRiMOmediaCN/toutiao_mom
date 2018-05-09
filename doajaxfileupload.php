@@ -34,12 +34,12 @@ if(!empty($_FILES[$fileElementName]['error'])){
     $res["msg"] = $error;
     exit(json_encode($res));
 }elseif(empty($_FILES[$fileElementName]['tmp_name']) || $_FILES[$fileElementName]['tmp_name'] == 'none'){
-    $error = 'No file was uploaded..';
+    $error = 'No file was uploaded..'.$fileElementName."///";
     $res["msg"] = $error;
     exit(json_encode($res));
 }else{
     //验证上传文件大小是否超过4M
-    if($_FILES[$fileElementName]['size']>(1024*1024*4)){
+    if($_FILES[$fileElementName]['size']>(1024*1024*64)){
         $res["msg"] = "Exceed the limit size";
         exit(json_encode($res));
     }

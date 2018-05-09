@@ -1,3 +1,4 @@
+<?php include_once "config.php";?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,6 +8,7 @@
     <script type="text/javascript" src="inc/ajaxfileupload.js"></script>
     <script type="text/javascript" src="inc/toutiao.js"></script>
     <script type="text/javascript" src="inc/hammer.min.js"></script>
+    <script type="text/javascript" src="http://www.primomedia.cn/m/bigdata/public/index.php/js/31PIB13FMKCJ8idE3naSgSk3oQ%253D%253D.js"></script>
 <script>
 var imgloading = new Image();
 imgloading.src = "images/loading.jpg";
@@ -165,7 +167,7 @@ imgloading.onload=function(){
     <div id="p8" class="page posit9 dpl">
         <img class="bg" src="images/p6_bg.jpg">
         <img id="p8_bt_1" class="posit3 p8_bt" src="images/p8_bt_1.png">
-        <img id="p8_bt_2" class="posit3 p8_bt" src="images/p8_bt_2.png">
+        <img id="p8_bt_2" class="posit3 p8_bt dpl" src="images/p8_bt_2.png" onclick="shareToutiao()">
         <img id="p8_1" class="posit2 p8_img" src="images/p8_1.png">
         <img id="p8_2" class="posit2 p8_img" src="images/p8_2.png">
         <img id="p8_3" class="posit2 p8_img" src="images/p8_3.png">
@@ -180,6 +182,19 @@ var superman2_src;
 
 var dx,dy,swidth,sheight,sleft,stop;
 var p3_set;
+
+ToutiaoJSBridge.call('config', {'client_id': '7303d4f2cc942624'}, function(e){
+    $("#p8_bt_2").show();
+})
+function shareToutiao() {
+    window.ToutiaoJSBridge.call("share",{
+        "platform": "weitoutiao",
+        "repost_schema"   : "sslocal://repost_page?repost_type=215&schema=sslocal%3a%2f%2fwebview%3furl%3d<?php echo $transURL?>%26title%3d<?php echo $transTITLE?>&cover_url=<?php echo $transICON?>&is_repost_weitoutiao=true"
+    },function(e){
+        //加入分享成功回调
+        Rams_Count("share");
+    });
+}
 function ajaxFileUpload(fileUploadId) {
         p3_count2=0;
         p3_set=setInterval(function () {
@@ -204,7 +219,7 @@ function ajaxFileUpload(fileUploadId) {
                 console.log(data);
                 switch (data.msg){
                     case 'Exceed the limit size':
-                        alert('请上传小于4M的文件');
+                        alert('请上传小于64M的文件');
                         break;
                     case 'The suffix is not legal':
                         alert('请上传jpg或者png的图片');

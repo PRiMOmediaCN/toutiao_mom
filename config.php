@@ -1,3 +1,9 @@
 <?php
 $AIappkey="ZNGsHeK1NnTNmzfAkEzTcZsK";
 $AIsecretkey="to16x7jKOkQCDI0NG9dFcXP4XxjtWm5G";
+$transURL="http://www.primomedia.cn/m/toutiao_mom/index";
+$transICON="http://www.primomedia.cn/m/toutiao_mom/images/icon.jpg";
+$transTITLE="母亲节的一封家书，让爱无距";
+$transURL=urlencode($transURL);
+$transICON=urlencode($transICON);
+$transTITLE=urlencode($transTITLE);
