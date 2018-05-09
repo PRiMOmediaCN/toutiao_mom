@@ -13,9 +13,9 @@ html{ font-family:"微软雅黑"}
 .fl{ float: left;}
 .tec{ text-align: center;}
 /*  p1   */
-#loadings{background-color:#000; width:100%; height:100%; z-index:99; position:absolute; left:0; top:0; padding:0; margin:0;}
+#loadings{background-color:#fff; width:100%; height:100%; z-index:99; position:absolute; left:0; top:0; padding:0; margin:0;}
 /*  p2   */
 #fileUpload{ opacity: 0;}
 #tel{ background-color: transparent; border: 0; text-align: right;}
-.p2_img{ opacity: 0;}
+.p2_img,#p3_1{ opacity: 0;}
 #tel_bar img{ float: right;}

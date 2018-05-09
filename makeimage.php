@@ -1,11 +1,11 @@
 <?php
-$photox=50;//照片left
-$photoy=100;//照片top
-$photow=500;//照片width
+$photox=157;//照片left
+$photoy=313;//照片top
+$photow=408;//照片width
 
-$huazix=10;//花字left
-$huaziy=100;//花字top
-$huaziw=50;//花字width
+$huazix=175;//花字left
+$huaziy=575;//花字top
+$huaziw=170;//花字width
 
 $image = imagecreatefromjpeg("images/makeElem/p6_bg.jpg");
 $source = imagecreatefromjpeg($_POST['filename']);
@@ -13,7 +13,7 @@ imagecopyresized($image, $source, $photox, $photoy, 0, 0, $photow, 652*$photow/6
 $source = imagecreatefrompng("images/makeElem/img_wall_".$_POST['model'].".png");
 imagecopyresized($image, $source, 0, 0, 0, 0, 720, 1410, 720, 1410);
 $source = imagecreatefrompng("images/makeElem/huazi_".$_POST['huazi'].".png");
-imagecopyresized($image, $source, $huazix, $huaziw, 0, 0, $huaziw, 166*$huaziw/265, 265, 166);
+imagecopyresized($image, $source, $huazix, $huaziy, 0, 0, $huaziw, 166*$huaziw/265, 265, 166);
 $savename=date('YmdHis',time()).rand(1000,9999).'.jpg';
 imagejpeg ($image,"made/".$savename);
 

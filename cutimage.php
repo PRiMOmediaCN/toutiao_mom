@@ -56,7 +56,7 @@ if(isset($_POST['filename'])){
     $result=$result['result'];
     if($result['face_num']<2){
         $res["msg"] = 'only1face';
-        echo json_encode($res);
+        exit(json_encode($res));
     }else{
         $image = imagecreatefromjpeg("cuted/".$savename);
 
