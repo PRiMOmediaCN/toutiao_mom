@@ -127,7 +127,7 @@ imgloading.onload=function(){
             <img id="dot_4" class="dot_pl fl" src="images/dot_2.png">
             <img id="dot_5" class="dot_pl fl" src="images/dot_2.png">
         </div>
-        <img id="p5_left" class="posit3" src="images/p5_left.png">
+        <img id="p5_left" class="posit3 dpl" src="images/p5_left.png">
         <img id="p5_right" class="posit3" src="images/p5_right.png">
         <img id="p5_bt_1" class="posit3 p5_bt" src="images/p5_bt_1.png">
         <img id="p5_bt_2" class="posit3 p5_bt" src="images/p5_bt_2.png">
@@ -181,6 +181,7 @@ var superman2_src;
 var dx,dy,swidth,sheight,sleft,stop;
 var p3_set;
 function ajaxFileUpload(fileUploadId) {
+        p3_count2=0;
         p3_set=setInterval(function () {
             for(var i=0;i<=6;i++){
                 setTimeout(function () {
@@ -241,7 +242,7 @@ function ajaxFileUpload(fileUploadId) {
                             });
                         }
 
-                        $('#superman').css({left:0,top:0});
+                        $('#superman').css({left:0,top:210/p+'px'});
                         $("#superman").attr("src","upload/"+data.filename);
                         $("#superman").css({"display":"block"});
                         $("#fileUpload").hide();
@@ -347,6 +348,7 @@ $(document).ready(function() {
 
 
     $('#p5_right').click(function () {
+        $('#p5_left').show();
         if(p5_count<5){
             $('.img_wall_pl').animate({left:"-="+x+'px'},500);
             p5_count++;
@@ -357,8 +359,12 @@ $(document).ready(function() {
             }
             $('#dot_'+p5_count).attr('src','images/dot_1.png');
         }
+        if(p5_count==5){
+            $('#p5_right').hide();
+        }
     });
     $('#p5_left').click(function () {
+        $('#p5_right').show();
         if(p5_count>1){
             $('.img_wall_pl').animate({left:"+="+x+'px'},500);
             p5_count--;
@@ -368,6 +374,9 @@ $(document).ready(function() {
                 }
             }
             $('#dot_'+p5_count).attr('src','images/dot_1.png');
+        }
+        if(p5_count==1){
+            $('#p5_left').hide();
         }
     });
 
@@ -519,6 +528,7 @@ $(document).ready(function() {
                 p2_animate();
             }
             if(count==3){
+
                 $('#arrow').fadeOut(500);
             }
 		}
@@ -561,11 +571,14 @@ function nextpage(){
 	if(s-y>=0){
 		for(var i=1;i<=3;i++){
 			$('#p'+i).animate({top:"-="+y+"px"},500,function(){
-
+                if(count==3){
+                    $('#p2').hide();
+                }
 			});
 		}
 
 	}
+
 }
 function nextpage2(){
     var s=$('#p3').css('top');
@@ -618,22 +631,32 @@ function p2_animate2(e) {
 //p3  逐帧动画
 var p3_count=0;
 function p3_animate() {
+    $('#p3_1').width(720/p).height(905/p).css({left:0/p+'px',top:90/p+'px',opacity:0});
+    $('#p3').show();
+    $('#p5').hide();
+
     $('#share_box').show();
     setTimeout(function () {
         $('#share_box').hide();
     }, 50);
+    p3_count=0;
+
     for(var i=0;i<=6;i++){
         setTimeout(function () {
             $('#3_0').attr('src','images/3_'+p3_count+'.png');
             p3_count++;
         },100*i);
     }
+
     setTimeout(function () {
         $('#p3_1').animate({width:449/p+'px',height:650/p+'px',left:(x-449/p)/2+'px',top:273/p+'px',opacity:1},1000,function () {
+            $('#p3_1').width(720/p).height(905/p).css({left:0/p+'px',top:90/p+'px',opacity:0});
+            $('#3_0').attr('src','images/3_0.png');
             huazi_count=Math.floor(Math.random()*7 + 1);
             $('#huazi').attr('src','images/huazi_'+huazi_count+'.png');
-            $('#p3').fadeOut(500);
+            //$('#p3').fadeOut(500);
             $('#p5').fadeIn(500);
+
         });
     },800);
 }
@@ -694,7 +717,7 @@ function getWidth(){
     }
     $('#p5_left').width(100/p).height(200/p).css({left:0/p+'px',top:425/p+'px'});
     $('#p5_right').width(100/p).height(200/p).css({right:0/p+'px',top:425/p+'px'});
-    $('.p5_bt').width(268/p).height(73/p).css({bottom:95/p+'px'});
+    $('.p5_bt').width(268/p).height(73/p).css({bottom:65/p+'px'});
     $('#p5_bt_1').css({left:76/p+'px'});
     $('#p5_bt_2').css({left:376/p+'px'});
     $('#dot_bar').width(120/p).height(18/p).css({left:(x-120/p)/2+'px',top:978/p+'px'});
