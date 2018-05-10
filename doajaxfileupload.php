@@ -94,7 +94,7 @@ if(!empty($_FILES[$fileElementName]['error'])){
     $image = imagecreatetruecolor($newwidth, $newheight);
     imagecopyresized($image, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-    imagejpeg ($image,"upload/".$savename);
+    imagejpeg ($image,"upload/".$savename,100);
     $res["msg"] = 'upload success';
     $res["filename"] = $savename;
     exit(json_encode($res));

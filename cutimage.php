@@ -38,7 +38,7 @@ if(isset($_POST['filename'])){
     $sy=$sy*720/$imagew;
     imagecopyresized($image, $source, 0, 0, $sx, $sy, $newwidth, $newheight, $swidth, $sheight);
     $savename=date('YmdHis',time()).rand(1000,9999).'.'.$suffix;
-    imagejpeg ($image,"cuted/".$savename);
+    imagejpeg ($image,"cuted/".$savename,100);
 
     $img = "cuted/".$savename;
     $base64_img = ig2tools::base64EncodeImage($img,false);
@@ -125,7 +125,7 @@ if(isset($_POST['filename'])){
         imagecopyresized($image, $source, $face2popx, $face2popy, 0, 0, 82*1.5, 78*1.5, 82, 78);
         imagettftext($image, 35, 0, $face1agex, $face1agey, $black, $font, $face1age);
         imagettftext($image, 35, 0, $face2agex, $face2agey, $black, $font, $face2age);
-        imagejpeg ($image,"cuted/".$savename);
+        imagejpeg ($image,"cuted/".$savename,100);
         $res["msg"] = 'cut success';
         $res["filename"] = $savename;
         $res["info"] = $result;

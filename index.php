@@ -532,7 +532,8 @@ $(document).ready(function() {
 
     //返回首页
     $('#p8_bt_1').click(function () {
-        window.location.href=window.location.href+'?timeline='+Math.random();
+        //window.location.href=window.location.href+'?timeline='+Math.random();
+        window.location.href='index.php';
     });
 
 	//手指滑动切换页面
@@ -781,14 +782,14 @@ function getWidth(){
     //
     $('#p7_close').width(100/p).height(100/p).css({right:20/p+'px',top:20/p+'px'});
     //p8
-    $('.p8_bt').width(268/p).height(73/p).css({bottom:95/p+'px'});
+    $('.p8_bt').width(268/p).height(73/p).css({bottom:65/p+'px'});
     $('#p8_bt_1').css({left:76/p+'px'});
     $('#p8_bt_2').css({left:376/p+'px'});
     $('#p8_1').width(145/p).height(82/p).css({left:37/p+'px',top:339/p+'px'});
     $('#p8_2').width(203/p).height(115/p).css({left:494/p+'px',top:370/p+'px'});
     $('#p8_3').width(147/p).height(84/p).css({left:360/p+'px',top:710/p+'px'});
     $('#p8_4').width(211/p).height(120/p).css({left:70/p+'px',top:825/p+'px'});
-    $('#p8_5').width(103/p).height(59/p).css({left:530/p+'px',top:940/p+'px'});
+    $('#p8_5').width(103/p).height(59/p).css({left:530/p+'px',top:910/p+'px'});
     $('#p8_bg,#p6_bg').height(1170/p);
 }
 </script>

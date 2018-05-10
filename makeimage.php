@@ -15,7 +15,7 @@ imagecopyresized($image, $source, 0, 0, 0, 0, 720, 1410, 720, 1410);
 $source = imagecreatefrompng("images/makeElem/huazi_".$_POST['huazi'].".png");
 imagecopyresized($image, $source, $huazix, $huaziy, 0, 0, $huaziw, 166*$huaziw/265, 265, 166);
 $savename=date('YmdHis',time()).rand(1000,9999).'.jpg';
-imagejpeg ($image,"made/".$savename);
+imagejpeg ($image,"made/".$savename,100);
 
 $res["msg"]="made success";
 $res['filename']=$savename;
