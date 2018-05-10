@@ -191,13 +191,8 @@ ToutiaoJSBridge.call('config', {'client_id': '<?php echo $transKEY?>'}, function
     $("#p8_bt_2").show();
 })
 function shareToutiao() {
-    window.ToutiaoJSBridge.call("share",{
-        "platform": "weitoutiao",
-        "repost_schema"   : "sslocal://repost_page?repost_type=215&schema=sslocal%3a%2f%2fwebview%3furl%3d<?php echo $transURL?>%26title%3d<?php echo $transTITLE?>&cover_url=<?php echo $transICON?>&is_repost_weitoutiao=true"
-    },function(e){
-        //加入分享成功回调
-        Rams_Count("share");
-    });
+    window.location.href="sslocal://repost_page?repost_type=215&schema=sslocal%3a%2f%2fwebview%3furl%3d<?php echo $transURL?>&title=<?php echo $transTITLE?>&cover_url=<?php echo $transICON?>&is_repost_weitoutiao=true";
+    Rams_Count("share");
 }
 function ajaxFileUpload(fileUploadId) {
         p3_count2=0;

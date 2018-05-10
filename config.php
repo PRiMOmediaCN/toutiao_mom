@@ -1,9 +1,7 @@
 <?php
 $AIappkey="ZNGsHeK1NnTNmzfAkEzTcZsK";
 $AIsecretkey="to16x7jKOkQCDI0NG9dFcXP4XxjtWm5G";
-$transURL="http://www.primomedia.cn/m/toutiao_mom/index.php";//转发目标
 $transURL="http://mothersday.toutiaocloud.com/index.php";//转发目标
-$transICON="http://www.primomedia.cn/m/toutiao_mom/images/icon.jpg";//转发icon
 $transICON="http://mothersday.toutiaocloud.com/images/icon.jpg";//转发icon
 $transTITLE="母亲节的一封家书，让爱无距";//转发标题
 $transKEY="7303d4f2cc942624";//头条接口key
