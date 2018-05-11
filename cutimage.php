@@ -47,7 +47,7 @@ if(isset($_POST['filename'])){
     $data=array(
         'image' => $base64_img,
         'image_type' => "BASE64",
-        'face_field' => "age,gender",//landmark
+        'face_field' => "age,gender,beauty",//landmark
         'max_face_num' => 2,
         'face_type' => "LIVE"
     );
@@ -61,57 +61,53 @@ if(isset($_POST['filename'])){
         $image = imagecreatefromjpeg("cuted/".$savename);
 
         $face1=$result['face_list'][0];
-        $face1age=$face1['age'];
+        $face1age=round($face1['beauty']*3);
         $face1popfile="images/age_left_bg.png";
         $face1popx=$face1['location']['left']-82*1.5-40;
         $face1popy=$face1['location']['top']+$face1['location']['height']/2;
-        $face1agex=$face1popx+25;
+        $face1agex=$face1popx+18;
         $face1agey=$face1popy+80;
         if($face1age<10){
-            $face1agex+=15;
-        }
-        if($face1age>99){
-            $face1agex-=15;
+            $face1agex+=25;
+        }else if($face1age<100){
+            $face1agex+=10;
         }
 
         $face2=$result['face_list'][1];
-        $face2age=$face2['age'];
+        $face2age=round($face2['beauty']*3);
         $face2popfile="images/age_left_bg.png";
         $face2popx=$face2['location']['left']-82*1.5-40;
         $face2popy=$face2['location']['top']+$face2['location']['height']/2;
         $face2agex=$face2popx+25;
         $face2agey=$face2popy+80;
         if($face2age<10){
-            $face2agex+=15;
-        }
-        if($face2age>99){
-            $face2agex-=15;
+            $face2agex+=25;
+        }else if($face2age<100){
+            $face2agex+=10;
         }
 
         if($face1popx<$face2popx){
             $face2popx=$face2['location']['left']+$face2['location']['width']+40;
             $face2popy=$face2['location']['top']-78*1.5;
             $face2popfile="images/age_right_bg.png";
-            $face2agex=$face2popx+40;
+            $face2agex=$face2popx+35;
             $face2agey=$face2popy+70;
             if($face2age<10){
-                $face2agex+=15;
-            }
-            if($face2age>99){
-                $face2agex-=15;
+                $face2agex+=25;
+            }else if($face2age<100){
+                $face2agex+=10;
             }
         }
         if($face1popx>=$face2popx){
             $face1popx=$face1['location']['left']+$face1['location']['width']+40;
             $face1popy=$face1['location']['top']-78*1.5;
             $face1popfile="images/age_right_bg.png";
-            $face1agex=$face1popx+40;
+            $face1agex=$face1popx+35;
             $face1agey=$face1popy+70;
             if($face1age<10){
-                $face1agex+=15;
-            }
-            if($face1age>99){
-                $face1agex-=15;
+                $face1agex+=25;
+            }else if($face1age<100){
+                $face1agex+=10;
             }
         }
         $image = imagecreatefromjpeg("cuted/".$savename);
@@ -123,12 +119,14 @@ if(isset($_POST['filename'])){
         imagecopyresized($image, $source, $face1popx, $face1popy, 0, 0, 82*1.5, 78*1.5, 82, 78);
         $source = imagecreatefrompng($face2popfile);
         imagecopyresized($image, $source, $face2popx, $face2popy, 0, 0, 82*1.5, 78*1.5, 82, 78);
-        imagettftext($image, 35, 0, $face1agex, $face1agey, $black, $font, $face1age);
-        imagettftext($image, 35, 0, $face2agex, $face2agey, $black, $font, $face2age);
+        imagettftext($image, 30, 0, $face1agex, $face1agey, $black, $font, $face1age);
+        imagettftext($image, 30, 0, $face2agex, $face2agey, $black, $font, $face2age);
         imagejpeg ($image,"cuted/".$savename,100);
         $res["msg"] = 'cut success';
         $res["filename"] = $savename;
         $res["info"] = $result;
+        $res["beauty1"] = $face1age;
+        $res["beauty2"] = $face2age;
     }
 
 
